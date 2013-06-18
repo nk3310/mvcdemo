@@ -39,7 +39,7 @@
                 { text: 'Name', dataIndex: 'name' },
                 { text: 'Email', dataIndex: 'email', flex: 1 }
             ],
-            height: 400,
+            height: 600,
             width: 800,
             style: {
                 margin: '0 auto'
@@ -49,10 +49,11 @@
                     text: 'add',
                     handler: function () {
                         var user = Ext.create('User', {name: 'Ed Spencer', email: 'ed@sencha.com'});
-
                         user.save({
                             success: function(user) {
                                 store.reload();
+                                user.save();
+                                user.destroy();
                             }
                         });
                     }

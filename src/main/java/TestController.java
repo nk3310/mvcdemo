@@ -1,8 +1,10 @@
 import com.jdon.mvc.represent.Html;
 import com.jdon.mvc.represent.Json;
 import com.jdon.mvc.represent.Represent;
+import com.jdon.mvc.rs.method.Delete;
 import com.jdon.mvc.rs.method.Path;
 import com.jdon.mvc.rs.method.Post;
+import com.jdon.mvc.rs.method.Put;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -28,12 +30,23 @@ public class TestController {
 
     @Path("/users")
     @Post
-    public Represent add_users(String name,String email) {
+    public Represent add_users() {
         User user = new User();
         user.setId(user.hashCode());
-        user.setName(name);
-        user.setEmail(email);
-        list.add(user);
+        user.setName("addName");
+        user.setEmail("addEmail");
+        return new Json(user);
+    }
+
+    @Path("/users/:id")
+    @Put
+    public Represent update_users(int id) {
+        return new Json(list);
+    }
+
+    @Path("/users/:id")
+    @Delete
+    public Represent delete_users(int id) {
         return new Json(list);
     }
 
