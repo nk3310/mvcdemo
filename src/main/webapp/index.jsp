@@ -7,9 +7,59 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/extjs/ext-all.js"></script>
 </head>
 <body>
+
+
 <script type="text/javascript">
+
+    Ext.define('User', {
+        extend: 'Ext.data.Model',
+        fields: ['id', 'name', 'email'],
+
+        proxy: {
+            type: 'rest',
+            url: 'users',
+            reader: {
+                type: 'json'
+            }
+        }
+    });
+
+    var store = Ext.create('Ext.data.Store', {
+        model: 'User'
+    });
+
+    store.load();
+
     Ext.onReady(function () {
-        Ext.MessageBox.alert('Status', 'Changes saved successfully.');
+        Ext.create('Ext.grid.Panel', {
+            title: 'mvc restful demo',
+            store: store,
+            columns: [
+                { text: 'Id', dataIndex: 'id' },
+                { text: 'Name', dataIndex: 'name' },
+                { text: 'Email', dataIndex: 'email', flex: 1 }
+            ],
+            height: 400,
+            width: 800,
+            style: {
+                margin: '0 auto'
+            },
+            tbar: [
+                {
+                    text: 'add',
+                    handler: function () {
+                        var user = Ext.create('User', {name: 'Ed Spencer', email: 'ed@sencha.com'});
+
+                        user.save({
+                            success: function(user) {
+                                store.reload();
+                            }
+                        });
+                    }
+                }
+            ],
+            renderTo: Ext.getBody()
+        });
     })
 </script>
 
