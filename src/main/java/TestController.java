@@ -1,3 +1,4 @@
+import com.jdon.mvc.annotations.In;
 import com.jdon.mvc.represent.Html;
 import com.jdon.mvc.represent.Json;
 import com.jdon.mvc.represent.Represent;
@@ -5,11 +6,17 @@ import com.jdon.mvc.rs.method.Delete;
 import com.jdon.mvc.rs.method.Path;
 import com.jdon.mvc.rs.method.Post;
 import com.jdon.mvc.rs.method.Put;
+import org.apache.commons.io.IOUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TestController {
+
+    @In
+    private HttpServletRequest request;
 
     private static List<User> list = new CopyOnWriteArrayList<User>();
 
