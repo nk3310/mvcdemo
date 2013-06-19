@@ -31,7 +31,7 @@
     store.load();
 
     Ext.onReady(function () {
-        Ext.create('Ext.grid.Panel', {
+        var grid = Ext.create('Ext.grid.Panel', {
             title: 'mvc restful demo',
             store: store,
             columns: [
@@ -50,12 +50,28 @@
                     handler: function () {
                         var user = Ext.create('User', {name: 'Ed Spencer', email: 'ed@sencha.com'});
                         user.save({
-                            success: function(user) {
+                            success: function (user) {
                                 store.reload();
                                 user.save();
-                                user.destroy();
                             }
                         });
+                    }
+                },
+                {
+                    text: 'delete',
+                    handler: function () {
+                        var models = grid.getSelectionModel().getSelection();
+                        if (models.length == 0) {
+                            Ext.Msg.alert("error", "please select model");
+                        } else {
+                            Ext.each(models, function (model) {
+                                model.destroy({
+                                    success: function () {
+                                        store.reload();
+                                    }
+                                });
+                            })
+                        }
                     }
                 }
             ],

@@ -1,4 +1,5 @@
 import com.jdon.mvc.annotations.In;
+import com.jdon.mvc.http.RequestBody;
 import com.jdon.mvc.represent.Html;
 import com.jdon.mvc.represent.Json;
 import com.jdon.mvc.represent.Represent;
@@ -6,19 +7,18 @@ import com.jdon.mvc.rs.method.Delete;
 import com.jdon.mvc.rs.method.Path;
 import com.jdon.mvc.rs.method.Post;
 import com.jdon.mvc.rs.method.Put;
-import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TestController {
 
-    @In
-    private HttpServletRequest request;
+    private static Map<Integer,User> map = new ConcurrentHashMap<Integer, User>();
 
-    private static List<User> list = new CopyOnWriteArrayList<User>();
+    @In
+    private RequestBody requestBody;
 
     @Path("/")
     public Represent index() {
@@ -31,30 +31,39 @@ public class TestController {
         user.setId(1);
         user.setName("oojdon");
         user.setEmail("vsmysee@gmail.com");
-        list.add(user);
-        return new Json(list);
+        map.put(user.getId(), user);
+        return new Json(map.values());
     }
 
     @Path("/users")
     @Post
-    public Represent add_users() {
+    public Represent add_users() throws JSONException {
+        JSONObject jsonObject = new JSONObject(requestBody.getContent());
         User user = new User();
         user.setId(user.hashCode());
-        user.setName("addName");
-        user.setEmail("addEmail");
+        user.setName(jsonObject.getString("name"));
+        user.setEmail(jsonObject.getString("email"));
+        map.put(user.getId(), user);
         return new Json(user);
     }
 
     @Path("/users/:id")
     @Put
-    public Represent update_users(int id) {
-        return new Json(list);
+    public Represent update_users(int id) throws JSONException {
+        JSONObject jsonObject = new JSONObject(requestBody.getContent());
+        User user = new User();
+        user.setId(id);
+        user.setName(jsonObject.getString("name"));
+        user.setEmail(jsonObject.getString("email"));
+        map.put(user.getId(), user);
+        return new Json(map.values());
     }
 
     @Path("/users/:id")
     @Delete
     public Represent delete_users(int id) {
-        return new Json(list);
+       map.remove(id);
+        return new Json(map.values());
     }
 
 }
