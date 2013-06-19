@@ -42,7 +42,7 @@
             height: 600,
             width: 800,
             style: {
-                margin: '0 auto'
+                margin: '20px auto 0'
             },
             selModel: Ext.create("Ext.selection.RowModel", { mode : 'MULTI' }),
             tbar: [
