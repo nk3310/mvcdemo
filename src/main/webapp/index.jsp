@@ -44,6 +44,7 @@
             ],
             height: 500,
             width: 600,
+            frame: true,
             style: {
                 float: 'left',
                 margin: '0 10px 0 0'
@@ -83,6 +84,7 @@
             width: 350,
             url: 'users',
             layout: 'anchor',
+            frame: true,
             defaults: {
                 anchor: '100%'
             },
@@ -138,6 +140,7 @@
             bodyPadding: 5,
             width: 350,
             layout: 'anchor',
+            frame: true,
             defaults: {
                 anchor: '100%'
             },
