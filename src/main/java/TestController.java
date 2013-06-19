@@ -1,4 +1,5 @@
 import com.jdon.mvc.annotations.In;
+import com.jdon.mvc.http.FormFile;
 import com.jdon.mvc.http.RequestBody;
 import com.jdon.mvc.represent.Html;
 import com.jdon.mvc.represent.Json;
@@ -66,6 +67,12 @@ public class TestController {
     public Represent delete_users(int id) {
         map.remove(id);
         return new Json(map.values());
+    }
+
+    @Path("/upload")
+    @Post
+    public Represent upload(FormFile formFile) {
+        return new Json(new Result(true,"upload successful"));
     }
 
 }

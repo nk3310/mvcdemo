@@ -7,6 +7,7 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/extjs/ext.js"></script>
 </head>
 <body>
+
 <div id="container" style="margin:20px auto 0;width: 960px"></div>
 
 
@@ -142,7 +143,7 @@
             },
             style: {
                 float: 'left',
-                marginTop:'20px'
+                marginTop:'15px'
             },
             items: [
                 {
@@ -185,6 +186,45 @@
                 }
             ],
             renderTo: 'container'
+        });
+
+        Ext.create('Ext.form.Panel', {
+            title: 'Upload Form',
+            width: 350,
+            bodyPadding: 10,
+            frame: true,
+            style: {
+                float: 'left',
+                marginTop:'15px'
+            },
+            renderTo: 'container',
+            buttonAlign: 'center',
+            items: [{
+                xtype: 'filefield',
+                name: 'formFile',
+                fieldLabel: 'file',
+                labelWidth: 50,
+                msgTarget: 'side',
+                allowBlank: false,
+                anchor: '100%',
+                buttonText: 'Select File...'
+            }],
+
+            buttons: [{
+                text: 'Upload',
+                handler: function() {
+                    var form = this.up('form').getForm();
+                    if(form.isValid()){
+                        form.submit({
+                            url: 'upload',
+                            waitMsg: 'Uploading your file...',
+                            success: function(fp, o) {
+                                Ext.Msg.alert('Success', 'Your file has been uploaded.');
+                            }
+                        });
+                    }
+                }
+            }]
         });
 
     })
