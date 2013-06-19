@@ -44,7 +44,14 @@
             style: {
                 margin: '0 auto'
             },
+            selModel: Ext.create("Ext.selection.RowModel", { mode : 'MULTI' }),
             tbar: [
+                {
+                    text:'refresh',
+                    handler:function(){
+                        grid.getStore().reload();
+                    }
+                },
                 {
                     text: 'add',
                     handler: function () {
