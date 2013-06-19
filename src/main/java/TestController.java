@@ -17,6 +17,14 @@ public class TestController {
 
     private static Map<Integer, User> map = new ConcurrentHashMap<Integer, User>();
 
+    static {
+        User user = new User();
+        user.setId(1);
+        user.setName("oojdon");
+        user.setEmail("vsmysee@gmail.com");
+        map.put(user.getId(), user);
+    }
+
     @In
     private RequestBody requestBody;
 
@@ -27,11 +35,6 @@ public class TestController {
 
     @Path("/users")
     public Represent users() {
-        User user = new User();
-        user.setId(1);
-        user.setName("oojdon");
-        user.setEmail("vsmysee@gmail.com");
-        map.put(user.getId(), user);
         return new Json(map.values());
     }
 
@@ -55,7 +58,7 @@ public class TestController {
         user.setName(jsonObject.getString("name"));
         user.setEmail(jsonObject.getString("email"));
         map.put(user.getId(), user);
-        return new Json(map.values());
+        return new Json(new Result(true,"update successful"));
     }
 
     @Path("/users/:id")

@@ -44,14 +44,14 @@
             height: 500,
             width: 600,
             style: {
-                float:'left',
-                margin:'0 10px 0 0'
+                float: 'left',
+                margin: '0 10px 0 0'
             },
-            selModel: Ext.create("Ext.selection.RowModel", { mode : 'MULTI' }),
+            selModel: Ext.create("Ext.selection.RowModel", { mode: 'MULTI' }),
             tbar: [
                 {
-                    text:'refresh',
-                    handler:function(){
+                    text: 'refresh',
+                    handler: function () {
                         grid.getStore().reload();
                     }
                 },
@@ -76,7 +76,7 @@
             renderTo: 'container'
         });
 
-        var form = Ext.create('Ext.form.Panel', {
+        Ext.create('Ext.form.Panel', {
             title: 'Add Form',
             bodyPadding: 5,
             width: 350,
@@ -86,43 +86,104 @@
                 anchor: '100%'
             },
             style: {
-                float:'left'
+                float: 'left'
             },
             defaultType: 'textfield',
-            items: [{
-                fieldLabel: 'Name',
-                name: 'name',
-                allowBlank: false
-            },{
-                fieldLabel: 'Email',
-                name: 'email',
-                allowBlank: false
-            }],
+            items: [
+                {
+                    fieldLabel: 'Name',
+                    name: 'name',
+                    allowBlank: false
+                },
+                {
+                    fieldLabel: 'Email',
+                    name: 'email',
+                    allowBlank: false
+                }
+            ],
 
-            buttonAlign : 'center',
+            buttonAlign: 'center',
 
-            buttons: [{
-                text: 'Submit',
-                handler: function() {
-                    var form = this.up('form').getForm();
-                    if (form.isValid()) {
-                        form.submit({
-                            success: function(form, action) {
-                                grid.getStore().reload();
-                                Ext.Msg.alert('Success', action.result.msg);
-                            },
-                            failure: function(form, action) {
-                                Ext.Msg.alert('Failed', action.result.msg);
-                            }
-                        });
+            buttons: [
+                {
+                    text: 'submit',
+                    handler: function () {
+                        var form = this.up('form').getForm();
+                        if (form.isValid()) {
+                            form.submit({
+                                success: function (form, action) {
+                                    grid.getStore().reload();
+                                    Ext.Msg.alert('Success', action.result.msg);
+                                },
+                                failure: function (form, action) {
+                                    Ext.Msg.alert('Failed', action.result.msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                {
+                    text: 'reset',
+                    handler: function () {
+                        this.up('form').getForm().reset();
                     }
                 }
-            },{
-                text: 'Reset',
-                handler: function() {
-                    this.up('form').getForm().reset();
+            ],
+            renderTo: 'container'
+        });
+
+        Ext.create('Ext.form.Panel', {
+            title: 'Update Form',
+            bodyPadding: 5,
+            width: 350,
+            layout: 'anchor',
+            defaults: {
+                anchor: '100%'
+            },
+            style: {
+                float: 'left',
+                marginTop:'20px'
+            },
+            items: [
+                {
+                    fieldLabel: 'ID',
+                    name: 'id',
+                    xtype: 'textfield',
+                    value : 1,
+                    allowBlank: false
+                },
+                {
+                    fieldLabel: 'Json',
+                    name: 'json',
+                    value :'{name:"update",email:"email"}',
+                    xtype: 'textarea',
+                    allowBlank: false
                 }
-            }],
+            ],
+
+            buttonAlign: 'center',
+
+            buttons: [
+                {
+                    text: 'update',
+                    handler: function () {
+                        var form = this.up('form').getForm();
+                        if (form.isValid()) {
+                            var id = form.findField('id').getValue();
+                            var json = form.findField('json').getValue();
+                            Ext.Ajax.request({
+                                url: 'users/' + id,
+                                method: 'PUT',
+                                jsonData: json,
+                                success: function () {
+                                    grid.getStore().reload();
+                                    Ext.Msg.alert('Success', 'update successful');
+                                }
+                            });
+                        }
+                    }
+                }
+            ],
             renderTo: 'container'
         });
 
