@@ -3,8 +3,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/extjs/ext-all.css">
-    <script type="text/javascript" src="<%=request.getContextPath()%>/extjs/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/extjs/ext.css">
+    <script type="text/javascript" src="<%=request.getContextPath()%>/extjs/ext.js"></script>
 </head>
 <body>
 
