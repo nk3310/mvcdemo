@@ -7,6 +7,7 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/extjs/ext.js"></script>
 </head>
 <body>
+<div id="container" style="margin:20px auto 0;width: 960px"></div>
 
 
 <script type="text/javascript">
@@ -31,6 +32,7 @@
     store.load();
 
     Ext.onReady(function () {
+
         var grid = Ext.create('Ext.grid.Panel', {
             title: 'mvc restful demo',
             store: store,
@@ -39,10 +41,11 @@
                 { text: 'Name', dataIndex: 'name' },
                 { text: 'Email', dataIndex: 'email', flex: 1 }
             ],
-            height: 600,
-            width: 800,
+            height: 500,
+            width: 600,
             style: {
-                margin: '20px auto 0'
+                float:'left',
+                margin:'0 10px 0 0'
             },
             selModel: Ext.create("Ext.selection.RowModel", { mode : 'MULTI' }),
             tbar: [
@@ -50,18 +53,6 @@
                     text:'refresh',
                     handler:function(){
                         grid.getStore().reload();
-                    }
-                },
-                {
-                    text: 'add',
-                    handler: function () {
-                        var user = Ext.create('User', {name: 'Ed Spencer', email: 'ed@sencha.com'});
-                        user.save({
-                            success: function (user) {
-                                store.reload();
-                                user.save();
-                            }
-                        });
                     }
                 },
                 {
@@ -82,8 +73,59 @@
                     }
                 }
             ],
-            renderTo: Ext.getBody()
+            renderTo: 'container'
         });
+
+        var form = Ext.create('Ext.form.Panel', {
+            title: 'Add Form',
+            bodyPadding: 5,
+            width: 350,
+            url: 'users',
+            layout: 'anchor',
+            defaults: {
+                anchor: '100%'
+            },
+            style: {
+                float:'left'
+            },
+            defaultType: 'textfield',
+            items: [{
+                fieldLabel: 'Name',
+                name: 'name',
+                allowBlank: false
+            },{
+                fieldLabel: 'Email',
+                name: 'email',
+                allowBlank: false
+            }],
+
+            buttonAlign : 'center',
+
+            buttons: [{
+                text: 'Submit',
+                handler: function() {
+                    var form = this.up('form').getForm();
+                    if (form.isValid()) {
+                        form.submit({
+                            success: function(form, action) {
+                                grid.getStore().reload();
+                                Ext.Msg.alert('Success', action.result.msg);
+                            },
+                            failure: function(form, action) {
+                                Ext.Msg.alert('Failed', action.result.msg);
+                            }
+                        });
+                    }
+                }
+            },{
+                text: 'Reset',
+                handler: function() {
+                    this.up('form').getForm().reset();
+                }
+            }],
+            renderTo: 'container'
+        });
+
     })
 </script>
 

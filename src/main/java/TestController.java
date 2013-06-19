@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class TestController {
 
-    private static Map<Integer,User> map = new ConcurrentHashMap<Integer, User>();
+    private static Map<Integer, User> map = new ConcurrentHashMap<Integer, User>();
 
     @In
     private RequestBody requestBody;
@@ -37,14 +37,13 @@ public class TestController {
 
     @Path("/users")
     @Post
-    public Represent add_users() throws JSONException {
-        JSONObject jsonObject = new JSONObject(requestBody.getContent());
+    public Represent add_users(String name, String email) throws JSONException {
         User user = new User();
         user.setId(user.hashCode());
-        user.setName(jsonObject.getString("name"));
-        user.setEmail(jsonObject.getString("email"));
+        user.setName(name);
+        user.setEmail(email);
         map.put(user.getId(), user);
-        return new Json(user);
+        return new Json(new Result(true, "add success"));
     }
 
     @Path("/users/:id")
@@ -62,7 +61,7 @@ public class TestController {
     @Path("/users/:id")
     @Delete
     public Represent delete_users(int id) {
-       map.remove(id);
+        map.remove(id);
         return new Json(map.values());
     }
 
