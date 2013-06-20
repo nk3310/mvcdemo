@@ -17,7 +17,7 @@ Ext.ns('com.jdon.mvc');
 
 Ext.apply(Ext.form.field.VTypes, {
     json: function (val, field) {
-        return Ext.decode(val,true) != null;
+        return Ext.decode(val, true) != null;
     },
     jsonText: 'require valid json'
 });
@@ -34,16 +34,15 @@ Ext.define('com.jdon.mvc.model.User', {
     }
 });
 
-var store = Ext.create('Ext.data.Store', {
-    model: 'com.jdon.mvc.model.User',
-    autoLoad: true
-});
 
 Ext.onReady(function () {
 
     com.jdon.mvc.grid = Ext.create('Ext.grid.Panel', {
         title: 'mvc restful demo',
-        store: store,
+        store: Ext.create('Ext.data.Store', {
+            model: 'com.jdon.mvc.model.User',
+            autoLoad: true
+        }),
         columns: [
             { text: 'Id', dataIndex: 'id' },
             { text: 'Name', dataIndex: 'name' },
@@ -116,13 +115,13 @@ Ext.onReady(function () {
             {
                 fieldLabel: 'Name',
                 name: 'user.name',
-                value:'test',
+                value: 'test',
                 allowBlank: false
             },
             {
                 fieldLabel: 'Email',
                 name: 'user.email',
-                value:'test@gmail.com',
+                value: 'test@gmail.com',
                 allowBlank: false,
                 vtype: 'email'
             }

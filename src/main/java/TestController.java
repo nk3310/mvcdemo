@@ -13,7 +13,7 @@ public class TestController {
     private static DB db = new DB();
 
     @In
-    private RequestBody requestBody;
+    private RequestBody body;
 
     @Path("/")
     public Represent index() {
@@ -33,7 +33,7 @@ public class TestController {
 
     @Path("put:/users/:id")
     public Represent update(int id) throws IOException {
-        db.update(requestBody.json2Object(User.class));
+        db.update(body.json2Object(User.class));
         return Json.create(new Result(true, "update successful"));
     }
 
