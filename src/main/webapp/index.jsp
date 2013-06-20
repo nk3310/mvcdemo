@@ -13,6 +13,13 @@
 
 <script type="text/javascript">
 
+Ext.apply(Ext.form.field.VTypes, {
+    json: function (val, field) {
+        return Ext.decode(val,true) != null;
+    },
+    jsonText: 'require valid json'
+});
+
 Ext.define('User', {
     extend: 'Ext.data.Model',
     fields: ['id', 'name', 'email'],
@@ -169,6 +176,7 @@ Ext.onReady(function () {
                 name: 'json',
                 value: '{"id":"1","name":"update","email":"email"}',
                 xtype: 'textarea',
+                vtype: 'json',
                 allowBlank: false
             }
         ],
