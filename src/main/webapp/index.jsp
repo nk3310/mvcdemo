@@ -93,12 +93,12 @@ Ext.onReady(function () {
         items: [
             {
                 fieldLabel: 'Name',
-                name: 'name',
+                name: 'user.name',
                 allowBlank: false
             },
             {
                 fieldLabel: 'Email',
-                name: 'email',
+                name: 'user.email',
                 allowBlank: false,
                 vtype: 'email'
             }

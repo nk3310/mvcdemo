@@ -30,10 +30,7 @@ public class TestController {
 
     @Path("/users")
     @Post
-    public Represent add(String name, String email) throws JSONException {
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
+    public Represent add(User user){
         db.add(user);
         return Json.create(new Result(true, "add success"));
     }
