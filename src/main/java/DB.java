@@ -1,6 +1,7 @@
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * User: Asion
@@ -11,9 +12,11 @@ public class DB {
 
     private Map<Integer, User> map = new ConcurrentHashMap<Integer, User>();
 
+    private AtomicInteger number = new AtomicInteger(1);
+
     {
         User user = new User();
-        user.setId(1);
+        user.setId(number.intValue());
         user.setName("oojdon");
         user.setEmail("vsmysee@gmail.com");
         map.put(user.getId(), user);
@@ -23,7 +26,12 @@ public class DB {
         map.remove(id);
     }
 
+    public void update(User user) {
+        map.put(user.getId(), user);
+    }
+
     public void add(User user) {
+        user.setId(number.incrementAndGet());
         map.put(user.getId(), user);
     }
 

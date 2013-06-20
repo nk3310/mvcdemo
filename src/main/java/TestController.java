@@ -32,7 +32,6 @@ public class TestController {
     @Post
     public Represent add_users(String name, String email) throws JSONException {
         User user = new User();
-        user.setId(db.all().size() + 1);
         user.setName(name);
         user.setEmail(email);
         db.add(user);
@@ -47,7 +46,7 @@ public class TestController {
         user.setId(id);
         user.setName(jsonObject.getString("name"));
         user.setEmail(jsonObject.getString("email"));
-        db.add(user);
+        db.update(user);
         return Json.create(new Result(true, "update successful"));
     }
 
