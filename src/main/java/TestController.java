@@ -24,13 +24,13 @@ public class TestController {
     }
 
     @Path("/users")
-    public Represent users() {
+    public Represent get() {
         return Json.create(db.all());
     }
 
     @Path("/users")
     @Post
-    public Represent add_users(String name, String email) throws JSONException {
+    public Represent add(String name, String email) throws JSONException {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
@@ -40,7 +40,7 @@ public class TestController {
 
     @Path("/users/:id")
     @Put
-    public Represent update_users(int id) throws JSONException {
+    public Represent update(int id) throws JSONException {
         JSONObject jsonObject = new JSONObject(requestBody.getContent());
         User user = new User();
         user.setId(id);
@@ -52,7 +52,7 @@ public class TestController {
 
     @Path("/users/:id")
     @Delete
-    public Represent delete_users(int id) {
+    public Represent delete(int id) {
         db.del(id);
         return Json.create(db.all());
     }
