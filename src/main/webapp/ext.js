@@ -8,7 +8,7 @@ Ext._startTime = new Date().getTime();
         enumerablesTest = {toString: 1},
         emptyFn = function () {},
         
-        
+
         callOverrideParent = function () {
             var method = callOverrideParent.caller.caller; 
             return method.$owner.prototype[method.$name].apply(this, arguments);

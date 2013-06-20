@@ -48,6 +48,17 @@ Ext.onReady(function () {
             margin: '0 10px 0 0'
         },
         selModel: Ext.create("Ext.selection.RowModel", { mode: 'MULTI' }),
+        listeners: {
+            selectionchange: function (model, records) {
+                var rec = records[0];
+                if (rec) {
+                    updateForm.getForm().setValues({
+                        id: rec.get('id'),
+                        json: Ext.String.format('{name:"{0}",email:"{1}"}', rec.get('name'), rec.get('email'))
+                    });
+                }
+            }
+        },
         tbar: [
             {
                 text: 'refresh',
@@ -132,7 +143,7 @@ Ext.onReady(function () {
         renderTo: 'container'
     });
 
-    Ext.create('Ext.form.Panel', {
+    var updateForm = Ext.create('Ext.form.Panel', {
         title: 'Update Form',
         bodyPadding: 5,
         width: 350,
