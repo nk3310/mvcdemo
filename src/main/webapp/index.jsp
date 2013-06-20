@@ -13,6 +13,8 @@
 
 <script type="text/javascript">
 
+Ext.ns('com.jdon.mvc');
+
 Ext.apply(Ext.form.field.VTypes, {
     json: function (val, field) {
         return Ext.decode(val,true) != null;
@@ -20,7 +22,7 @@ Ext.apply(Ext.form.field.VTypes, {
     jsonText: 'require valid json'
 });
 
-Ext.define('User', {
+Ext.define('com.jdon.mvc.model.User', {
     extend: 'Ext.data.Model',
     fields: ['id', 'name', 'email'],
     proxy: {
@@ -33,13 +35,13 @@ Ext.define('User', {
 });
 
 var store = Ext.create('Ext.data.Store', {
-    model: 'User',
+    model: 'com.jdon.mvc.model.User',
     autoLoad: true
 });
 
 Ext.onReady(function () {
 
-    var grid = Ext.create('Ext.grid.Panel', {
+    com.jdon.mvc.grid = Ext.create('Ext.grid.Panel', {
         title: 'mvc restful demo',
         store: store,
         columns: [
@@ -59,7 +61,7 @@ Ext.onReady(function () {
             selectionchange: function (model, records) {
                 var rec = records[0];
                 if (rec) {
-                    updateForm.getForm().setValues({
+                    com.jdon.mvc.updateForm.getForm().setValues({
                         id: rec.get('id'),
                         json: Ext.String.format('{"id":"{0}","name":"{1}","email":"{2}"}', rec.get('id'), rec.get('name'), rec.get('email'))
                     });
@@ -70,13 +72,13 @@ Ext.onReady(function () {
             {
                 text: 'refresh',
                 handler: function () {
-                    grid.getStore().reload();
+                    com.jdon.mvc.grid.getStore().reload();
                 }
             },
             {
                 text: 'delete',
                 handler: function () {
-                    var models = grid.getSelectionModel().getSelection();
+                    var models = com.jdon.mvc.grid.getSelectionModel().getSelection();
                     if (models.length == 0) {
                         Ext.Msg.alert("error", "please select model");
                         return;
@@ -88,6 +90,8 @@ Ext.onReady(function () {
                             }
                         });
                     })
+
+                    com.jdon.mvc.updateForm.getForm().reset();
                 }
             }
         ],
@@ -112,11 +116,13 @@ Ext.onReady(function () {
             {
                 fieldLabel: 'Name',
                 name: 'user.name',
+                value:'test',
                 allowBlank: false
             },
             {
                 fieldLabel: 'Email',
                 name: 'user.email',
+                value:'test@gmail.com',
                 allowBlank: false,
                 vtype: 'email'
             }
@@ -130,7 +136,7 @@ Ext.onReady(function () {
                     if (form.isValid()) {
                         form.submit({
                             success: function (form, action) {
-                                grid.getStore().reload();
+                                com.jdon.mvc.grid.getStore().reload();
                                 Ext.Msg.alert('Success', action.result.msg);
                             },
                             failure: function (form, action) {
@@ -150,7 +156,7 @@ Ext.onReady(function () {
         renderTo: 'container'
     });
 
-    var updateForm = Ext.create('Ext.form.Panel', {
+    com.jdon.mvc.updateForm = Ext.create('Ext.form.Panel', {
         title: 'Update Form',
         bodyPadding: 5,
         width: 350,
@@ -168,13 +174,11 @@ Ext.onReady(function () {
                 fieldLabel: 'ID',
                 name: 'id',
                 xtype: 'textfield',
-                value: 1,
                 allowBlank: false
             },
             {
                 fieldLabel: 'Json',
                 name: 'json',
-                value: '{"id":"1","name":"update","email":"email"}',
                 xtype: 'textarea',
                 vtype: 'json',
                 allowBlank: false
@@ -194,7 +198,7 @@ Ext.onReady(function () {
                             method: 'PUT',
                             jsonData: json,
                             success: function () {
-                                grid.getStore().reload();
+                                com.jdon.mvc.grid.getStore().reload();
                                 Ext.Msg.alert('Success', 'update successful');
                             }
                         });
