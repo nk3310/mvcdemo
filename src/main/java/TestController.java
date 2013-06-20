@@ -1,13 +1,10 @@
 import com.jdon.mvc.annotations.In;
+import com.jdon.mvc.annotations.Path;
 import com.jdon.mvc.http.FormFile;
 import com.jdon.mvc.http.RequestBody;
 import com.jdon.mvc.represent.Html;
 import com.jdon.mvc.represent.Json;
 import com.jdon.mvc.represent.Represent;
-import com.jdon.mvc.rs.method.Delete;
-import com.jdon.mvc.rs.method.Path;
-import com.jdon.mvc.rs.method.Post;
-import com.jdon.mvc.rs.method.Put;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,7 +17,7 @@ public class TestController {
 
     @Path("/")
     public Represent index() {
-        return new Html("index.jsp");
+        return new Html("index");
     }
 
     @Path("/users")
@@ -28,15 +25,13 @@ public class TestController {
         return Json.create(db.all());
     }
 
-    @Path("/users")
-    @Post
+    @Path("post:/users")
     public Represent add(User user){
         db.add(user);
         return Json.create(new Result(true, "add success"));
     }
 
-    @Path("/users/:id")
-    @Put
+    @Path("put:/users/:id")
     public Represent update(int id) throws JSONException {
         JSONObject jsonObject = new JSONObject(requestBody.getContent());
         User user = new User();
@@ -47,15 +42,13 @@ public class TestController {
         return Json.create(new Result(true, "update successful"));
     }
 
-    @Path("/users/:id")
-    @Delete
+    @Path("delete:/users/:id")
     public Represent delete(int id) {
         db.del(id);
         return Json.create(db.all());
     }
 
-    @Path("/upload")
-    @Post
+    @Path("post:/upload")
     public Represent upload(FormFile formFile) {
         return Json.create(new Result(true, "upload successful"));
     }

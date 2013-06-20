@@ -4,13 +4,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-
-    <context-param>
-        <param-name>com.jdon.mvc.template.factory</param-name>
-        <param-value>com.jdon.mvc.template.jsp.JspTemplateFactory</param-value>
-    </context-param>
-
-
     <filter>
         <filter-name>RestFilter</filter-name>
         <filter-class>com.jdon.mvc.RestFilter</filter-class>
