@@ -5,8 +5,8 @@ import com.jdon.mvc.http.RequestBody;
 import com.jdon.mvc.represent.Html;
 import com.jdon.mvc.represent.Json;
 import com.jdon.mvc.represent.Represent;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class TestController {
 
@@ -26,19 +26,14 @@ public class TestController {
     }
 
     @Path("post:/users")
-    public Represent add(User user){
+    public Represent add(User user) {
         db.add(user);
         return Json.create(new Result(true, "add success"));
     }
 
     @Path("put:/users/:id")
-    public Represent update(int id) throws JSONException {
-        JSONObject jsonObject = new JSONObject(requestBody.getContent());
-        User user = new User();
-        user.setId(id);
-        user.setName(jsonObject.getString("name"));
-        user.setEmail(jsonObject.getString("email"));
-        db.update(user);
+    public Represent update(int id) throws IOException {
+        db.update(requestBody.json2Object(User.class));
         return Json.create(new Result(true, "update successful"));
     }
 

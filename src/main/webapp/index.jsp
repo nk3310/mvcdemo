@@ -54,7 +54,7 @@ Ext.onReady(function () {
                 if (rec) {
                     updateForm.getForm().setValues({
                         id: rec.get('id'),
-                        json: Ext.String.format('{name:"{0}",email:"{1}"}', rec.get('name'), rec.get('email'))
+                        json: Ext.String.format('{"id":"{0}","name":"{1}","email":"{2}"}', rec.get('id'), rec.get('name'), rec.get('email'))
                     });
                 }
             }
@@ -167,7 +167,7 @@ Ext.onReady(function () {
             {
                 fieldLabel: 'Json',
                 name: 'json',
-                value: '{name:"update",email:"email"}',
+                value: '{"id":"1","name":"update","email":"email"}',
                 xtype: 'textarea',
                 allowBlank: false
             }
