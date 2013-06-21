@@ -4,6 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ext.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/icon.css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/ext.js"></script>
 </head>
 <body>
@@ -70,12 +71,14 @@ Ext.onReady(function () {
         tbar: [
             {
                 text: 'refresh',
+                iconCls:'refresh',
                 handler: function () {
                     com.jdon.mvc.grid.getStore().reload();
                 }
             },
             {
                 text: 'delete',
+                iconCls:'delete',
                 handler: function () {
                     var models = com.jdon.mvc.grid.getSelectionModel().getSelection();
                     if (models.length == 0) {

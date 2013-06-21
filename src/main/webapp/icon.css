@@ -1,0 +1,12 @@
+.add {
+    background-image: url(images/icons/add.gif) !important;
+}
+
+.delete {
+    background-image: url(images/icons/delete.gif) !important;
+}
+
+
+.refresh {
+    background-image: url(images/icons/refresh.gif) !important;
+}
