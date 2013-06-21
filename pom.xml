@@ -54,6 +54,13 @@
                     <outputDirectory/>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <configuration>
+                    <webApp>${basedir}/target/mvcdemo</webApp>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
