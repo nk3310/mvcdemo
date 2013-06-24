@@ -245,6 +245,9 @@ Ext.onReady(function () {
                             waitMsg: 'Uploading your file...',
                             success: function (fp, o) {
                                 Ext.Msg.alert('Success', 'Your file has been uploaded.');
+                            },
+                            failure: function (form, action) {
+                                Ext.Msg.alert('Failed', action.result.msg);
                             }
                         });
                     }
