@@ -6,8 +6,6 @@ import com.jdon.mvc.represent.Html;
 import com.jdon.mvc.represent.Json;
 import com.jdon.mvc.represent.Represent;
 
-import java.io.IOException;
-
 public class TestController {
 
     private static DB db = new DB();
@@ -32,7 +30,7 @@ public class TestController {
     }
 
     @Path("put:/users/:id")
-    public Represent update(int id) throws IOException {
+    public Represent update(int id) {
         db.update(body.json2Object(User.class));
         return Json.create(new Result(true, "update successful"));
     }

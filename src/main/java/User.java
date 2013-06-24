@@ -4,8 +4,11 @@
  * Time: 下午3:23
  */
 public class User {
+
     private int id;
+
     private String name;
+
     private String email;
 
     public int getId() {

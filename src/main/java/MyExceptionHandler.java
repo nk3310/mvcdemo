@@ -25,7 +25,7 @@ public class MyExceptionHandler implements ExceptionResolver {
 
     @Override
     public Represent resolveBindingException(HttpServletRequest request, HttpServletResponse response, Handler handler, BindingException ex) {
-        return null;
+        return Json.create(new Result(false, "binding error"));
     }
 
     @Override
