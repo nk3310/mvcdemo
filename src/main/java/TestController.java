@@ -43,7 +43,7 @@ public class TestController {
 
     @Path("post:/upload")
     public Represent upload(FormFile formFile) {
-        return Json.create(new Result(true, "upload successful"));
+        return Json.create(new Result(true, "upload successful,the byte number is :" + formFile.getFileSize()));
     }
 
 }

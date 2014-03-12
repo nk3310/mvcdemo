@@ -243,8 +243,8 @@ Ext.onReady(function () {
                         form.submit({
                             url: 'upload',
                             waitMsg: 'Uploading your file...',
-                            success: function (fp, o) {
-                                Ext.Msg.alert('Success', 'Your file has been uploaded.');
+                            success: function (fp, action) {
+                                Ext.Msg.alert('Success', action.result.msg);
                             },
                             failure: function (form, action) {
                                 Ext.Msg.alert('Failed', action.result.msg);
