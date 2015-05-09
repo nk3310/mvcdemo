@@ -77,12 +77,14 @@
         </plugins>
     </build>
 
+
     <repositories>
         <repository>
             <id>jdonmvc</id>
-            <url>https://github.com/oojdon/mvnrep/raw/master</url>
+            <url>http://www.codingbaby.com/jdonmvc</url>
         </repository>
     </repositories>
+
 
 
 </project>
