@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jdon</groupId>
     <artifactId>mvcdemo</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <name>mvcdemo</name>
 
     <packaging>war</packaging>
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>com.jdon</groupId>
             <artifactId>mvc</artifactId>
-            <version>1.0</version>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
